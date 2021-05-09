@@ -31,11 +31,9 @@
   @include shadow-strong;
 }
 .product__header {
-  height: 50%;
-  width: 100%;
+  width: auto;
 }
 .product img {
-  height: 100%;
   width: 100%;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
@@ -49,7 +47,7 @@
   color: $secondary;
 }
 .product__description {
-  height: 77px;
+  max-height: 77px;
   overflow-y: auto;
   text-overflow: ellipsis;
 }

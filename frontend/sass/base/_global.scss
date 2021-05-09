@@ -4,6 +4,11 @@
   padding: 0px;
   font-family: "Lato", sans-serif;
 }
+.site__width {
+  position: relative;
+  margin: auto;
+  max-width: 1600px;
+}
 p,
 a {
   margin: 0px !important;
