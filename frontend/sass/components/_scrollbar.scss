@@ -1,0 +1,24 @@
+/* DU BODY */
+body::-webkit-scrollbar {
+  width: 5px;
+}
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: lightgrey;
+  border-radius: 20px;
+  border: 2px solid transparent;
+}
+/* DANS L'ELEMENT CARD */
+.product__description::-webkit-scrollbar {
+  width: 7px;
+}
+.product__description::-webkit-scrollbar-track {
+  background: transparent;
+}
+.product__description::-webkit-scrollbar-thumb {
+  background-color: lightgrey;
+  border-radius: 20px;
+  border: 2px solid white;
+}

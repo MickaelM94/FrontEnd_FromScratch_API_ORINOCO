@@ -1,141 +1,50 @@
-/* SCROLL BAR DESIGN */
-body::-webkit-scrollbar {
-  width: 5px;
+@charset "UTF-8";
+/* ------- UTILS ------- */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
-body::-webkit-scrollbar-track {
-  background: transparent;
+@keyframes colored-spacing {
+  0% {
+    letter-spacing: normal;
+  }
+  50% {
+    letter-spacing: 1px;
+  }
+  100% {
+    letter-spacing: normal;
+  }
 }
-body::-webkit-scrollbar-thumb {
-  background-color: lightgrey;
-  border-radius: 20px;
-  border: 2px solid transparent;
-}
-/* END */
+/* ------- BASE ------- */
 * {
   margin: 0px;
   padding: 0px;
   font-family: "Lato", sans-serif;
 }
+
 p,
 a {
   margin: 0px !important;
 }
 
-nav {
-  position: fixed !important;
-  background-color: white;
-  box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
-  z-index: 100;
-  top: 0;
-  left: 0;
-  right: 0;
-}
 section {
   padding: 20px;
 }
+
 h2 {
   margin-top: 40px !important;
 }
-.full {
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.9),
-      rgba(255, 255, 255, 0.9)
-    ),
-    url(/frontend/images/fond.jpg);
-  background-size: cover;
-  height: 100vh;
-  display: flex;
-}
-.full div {
-  color: #6c757d;
-  margin: auto;
-  width: fit-content;
-  font-size: x-large;
-}
-.products__list {
-  margin-top: 70px;
-  display: flex;
-  flex-direction: column;
-  row-gap: 40px;
-}
-.product {
-  height: fit-content;
-  box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
-  border-radius: 7px;
-  transition-duration: 0.3s;
-  text-align: center;
-}
-.product:hover {
-  box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.25);
-}
-.product__header {
-  height: 50%;
-  width: 100%;
-}
-.product img {
-  height: 100%;
-  width: 100%;
-  border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
-}
-.product__body {
-  padding: 20px 10px 40px 10px;
-}
-.product__title {
-  font-size: large;
-  margin: 10px 0px 4px 0px !important;
-  color: grey;
-}
-.product__description {
-  height: 77px;
-  overflow-y: auto;
-  text-overflow: ellipsis;
-}
-.product__price {
-  background-color: rgb(120, 120, 120, 0.2);
-  width: fit-content;
-  margin: 10px auto !important;
-  padding: 0px 20px;
-  text-align: center;
-  border-radius: 7px;
-  font-size: large;
-  box-shadow: 0px 2px 4px 0px rgba(53, 53, 53, 0.25);
-}
-.product__price::before {
-  content: "€ ";
-  font-size: x-large;
-}
-.product__link {
-  margin-top: 10px !important;
-  display: block;
-}
-/* SCROLL BAR DESIGN */
-.product__description::-webkit-scrollbar {
-  width: 7px;
-}
-.product__description::-webkit-scrollbar-track {
-  background: transparent;
-}
-.product__description::-webkit-scrollbar-thumb {
-  background-color: lightgrey;
-  border-radius: 20px;
-  border: 2px solid white;
-}
-/* END */
 
-footer {
-  background-color: black;
-  color: white;
-  text-align: center;
-  padding: 10px;
-}
-
-/* == ANIMATIONS == */
-
+/* ------- COMPONENTS ------ */
 .loader {
   display: flex;
   width: fit-content;
 }
+
 .loaderCircles {
   display: inline-block;
   margin: auto;
@@ -145,6 +54,7 @@ footer {
   border-radius: 30px;
   border: 4px solid transparent;
 }
+
 .loaderCircles::after {
   content: "";
   position: absolute;
@@ -157,14 +67,7 @@ footer {
   border-top: 4px solid black;
   animation: spin 1.5s ease-in-out infinite;
 }
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+
 .loaderText {
   display: inline-block;
   margin-left: 20px !important;
@@ -172,16 +75,126 @@ footer {
   color: black;
   animation: colored-spacing 1.5s ease-in-out infinite;
 }
-@keyframes colored-spacing {
-  0% {
-    letter-spacing: normal;
-  }
-  50% {
-    letter-spacing: 1px;
-  }
-  100% {
-    letter-spacing: normal;
-  }
+
+/* DU BODY */
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: lightgrey;
+  border-radius: 20px;
+  border: 2px solid transparent;
+}
+
+/* DANS L'ELEMENT CARD */
+.product__description::-webkit-scrollbar {
+  width: 7px;
+}
+
+.product__description::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.product__description::-webkit-scrollbar-thumb {
+  background-color: lightgrey;
+  border-radius: 20px;
+  border: 2px solid white;
+}
+
+/* ------- LAYOUT ------- */
+footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+/* ------- PAGES ------- */
+.full {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(/frontend/images/fond.jpg);
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+}
+
+.full div {
+  color: #6c757d;
+  margin: auto;
+  width: fit-content;
+  font-size: x-large;
+}
+
+.products__list {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+.product {
+  height: fit-content;
+  box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
+  border-radius: 7px;
+  transition-duration: 0.3s;
+  text-align: center;
+}
+
+.product:hover {
+  box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.25);
+}
+
+.product__header {
+  height: 50%;
+  width: 100%;
+}
+
+.product img {
+  height: 100%;
+  width: 100%;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.product__body {
+  padding: 20px 10px 40px 10px;
+}
+
+.product__title {
+  font-size: large;
+  margin: 10px 0px 4px 0px !important;
+  color: #6c757d;
+}
+
+.product__description {
+  height: 77px;
+  overflow-y: auto;
+  text-overflow: ellipsis;
+}
+
+.product__price {
+  background-color: rgba(120, 120, 120, 0.2);
+  width: fit-content;
+  margin: 10px auto !important;
+  padding: 0px 20px;
+  text-align: center;
+  border-radius: 7px;
+  font-size: large;
+  box-shadow: 0px 2px 4px 0px rgba(53, 53, 53, 0.25);
+}
+
+.product__price::before {
+  content: "€ ";
+  font-size: x-large;
+}
+
+.product__link {
+  margin-top: 10px !important;
+  display: block;
 }
 
 /* == RESPONSIVE == */
@@ -201,3 +214,5 @@ footer {
     row-gap: 20px;
   }
 }
+
+/*# sourceMappingURL=style.css.map */

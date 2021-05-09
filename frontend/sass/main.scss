@@ -1,0 +1,25 @@
+/* ------- UTILS ------- */
+
+@import "./utils/variables";
+@import "./utils/mixins";
+@import "./utils/keyframes";
+
+/* ------- BASE ------- */
+
+@import "./base/global";
+
+/* ------- COMPONENTS ------ */
+
+@import "./components/loader";
+@import "./components/scrollbar";
+
+/* ------- LAYOUT ------- */
+
+@import "./layout/footer";
+
+/* ------- PAGES ------- */
+
+@import "./pages/index";
+@import "./pages/product";
+@import "./pages/cart";
+@import "./pages/checkout";
