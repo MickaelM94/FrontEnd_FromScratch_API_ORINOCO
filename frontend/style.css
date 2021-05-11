@@ -227,7 +227,7 @@ nav {
 @media (min-width: 900px) {
   .products__list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     column-gap: 20px;
     row-gap: 20px;
   }
@@ -287,7 +287,12 @@ nav {
 
 /* == RESPONSIVE == */
 @media (min-width: 400px) {
-  img {
+  .product__page {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+  }
+  .product__page img {
     margin: 40px auto auto auto;
     box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
     border-radius: 7px;
