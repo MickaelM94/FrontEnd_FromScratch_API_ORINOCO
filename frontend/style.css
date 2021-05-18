@@ -135,6 +135,18 @@ nav {
   right: 0;
 }
 
+.cart {
+  display: none;
+}
+.cart--active {
+  display: inline !important;
+  position: relative;
+  top: -5px;
+  right: -5px;
+  color: #008766;
+  font-size: smaller;
+}
+
 /* ------- PAGES ------- */
 .full {
   background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url(/frontend/images/fond.jpg);
@@ -292,7 +304,7 @@ nav {
   .product__page {
     box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
     border-radius: 7px;
-    margin: 40px auto 20px auto;
+    margin: 40px auto;
   }
   .product__page img {
     border-top-left-radius: 7px;
