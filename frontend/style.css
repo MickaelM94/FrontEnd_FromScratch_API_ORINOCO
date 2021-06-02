@@ -49,6 +49,7 @@ h2 {
 .loader {
   display: flex;
   width: fit-content;
+  margin: 40px auto;
 }
 
 .loaderCircles {
@@ -172,8 +173,8 @@ nav {
 .product {
   height: fit-content;
   box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
+  transition-duration: 0.4s;
   border-radius: 7px;
-  transition-duration: 0.3s;
   text-align: center;
 }
 
@@ -297,18 +298,97 @@ nav {
 }
 .product__infos div button:hover {
   box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
+  transition-duration: 0.4s;
 }
 
 /* == RESPONSIVE == */
 @media (min-width: 400px) {
   .product__page {
     box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
+    transition-duration: 0.4s;
     border-radius: 7px;
     margin: 40px auto;
   }
   .product__page img {
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
+  }
+}
+.cart__page {
+  min-height: 90vh;
+  margin: 20px;
+}
+
+.cart__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  margin: 60px auto;
+}
+
+.cart__product {
+  box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.1);
+  transition-duration: 0.4s;
+  border-radius: 7px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 20px;
+}
+.cart__product:hover {
+  box-shadow: 0px 4px 10px 1px rgba(53, 53, 53, 0.25);
+}
+.cart__product img {
+  height: 40px;
+}
+.cart__product .cart__productPrice::after {
+  content: " €";
+}
+.cart__product :nth-child(5) {
+  font-weight: bold;
+}
+.cart__product :nth-child(5) .total {
+  font-weight: 400;
+  color: #008766;
+}
+.cart__product :nth-child(5) .total::after {
+  content: " €";
+}
+.cart__product .cart__productName,
+.cart__product .delete,
+.cart__product .cart__productQuantity {
+  text-align: end;
+}
+
+.quantity {
+  margin: auto 20px;
+}
+
+.orderTotal {
+  color: #008766;
+  font-weight: bold;
+}
+.orderTotal::after {
+  content: " €";
+}
+
+.cart__footer {
+  margin: 40px auto;
+  text-align: center;
+}
+
+/* == RESPONSIVE == */
+@media (min-width: 400px) {
+  .cart__list {
+    max-width: 700px;
+  }
+
+  .cart__product {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 20px;
+    row-gap: 20px;
   }
 }
 

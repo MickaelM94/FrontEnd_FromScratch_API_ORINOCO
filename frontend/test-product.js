@@ -15,6 +15,7 @@ const fetchDatas = async () => {
 function numberWithSpaces(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
+
 // AFFICHER LES DONNEES DU PRODUIT
 const showDatas = async () => {
   await fetchDatas();
@@ -52,29 +53,39 @@ const showDatas = async () => {
 };
 showDatas();
 
-// == POUR LE COMPTEUR DU PANIER ==
+// == INITIALISATION DU PANIER ==
+let cart = [];
+
+
+// INITIALISER LE COMPTEUR DU PANIER
 const getCartClass = document.querySelector(".cart");
-let cartCounter = 0;
+let cartCounter;
+if (cartCounter == 0) {
+  localStorage.setItem("quantityInCart", "0");
+} else {
+  cartCounter = JSON.parse(localStorage.getItem("quantityInCart"));
+};
+
+// AFFICHER LE COMPTEUR SI REMPLI
+getCartClass.classList.add("cart--active");
 
 // AJOUTER LE PRODUIT AU PANIER
 function addToCart() {
-  localStorage.setItem("productInCart", JSON.stringify(data));
+  cart = cart.push[JSON.stringify({id: data.id, name: data.name, price: data.price})];
+  localStorage.setItem("productInCart", JSON.stringify(cart));
 }
 
 // AJOUTER UNE UNITEE AU COMPTEUR
 function oneAddToCounter() {
   cartCounter++;
+  localStorage.setItem("quantityInCart", JSON.stringify(cartCounter));
   getCartClass.innerHTML = cartCounter;
-  // AFFICHER LE COMPTEUR APRES AJOUT
-  getCartClass.classList.add("cart--active");
-  addToCart()
+  addToCart();
   return cartCounter;
 }
 
 // RETIRER LE PRODUIT DU PANIER
-function addToCart() {
-  localStorage.setItem("productInCart", JSON.stringify(data));
-}
+
 
 // RETIRER UNE UNITEE AU COMPTEUR
 function oneRemoveToCounter() {
@@ -88,6 +99,4 @@ function oneRemoveToCounter() {
   return cartCounter;
 }
 
-// UTILISATION DU LOCAL STORAGE
-let cart = localStorage;
-
+localStorage.setItem("productInCart", JSON.stringify(cart))

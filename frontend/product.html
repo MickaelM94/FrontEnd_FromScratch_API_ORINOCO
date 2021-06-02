@@ -46,7 +46,7 @@
                   <a class="nav-link" aria-current="page" href="http://127.0.0.1:5500/frontend/index.html">Accueil</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Panier<span class="cart">0</span></a>
+                  <a class="nav-link" href="http://127.0.0.1:5500/frontend/cart.html">Panier<span class="cart">0</span></a>
                 </li>
               </ul>
             </div>
@@ -54,30 +54,12 @@
         </nav>
     </header>
     <main class="product__page">
-        <img src="/frontend/images/item.png" alt="">
-        <div class="product__infos">
-            <p class="product__title">
-                Nom du produit
-            </p>
-            <p class="product__description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ex repellendus temporibus voluptatum natus, delectus, dignissimos possimus sequi assumenda asperiores suscipit quaerat rerum necessitatibus. Labore, velit libero. Vel, quo quibusdam!
-            </p>
-            <label for="lenses">Lentilles :</label>
-            <select name="lenses" id="lenses">
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-                <option value="4">Option 4</option>
-            </select>
-            <div>
-                <p>
-                    5454
-                </p>
-                <button onclick="oneAddToCounter()" class="addToCart">
-                    <i class="fas fa-cart-plus"></i>
-                </button>
-            </div>
+        <!-- == LOADER -->
+        <div class="loader">
+          <div class="loaderCircles"></div>
+          <p class="loaderText">Chargement</p>
         </div>
+        <!-- END -->
     </main>
     <footer>
         <p>Fait par Mickaël Mandrin</p>
@@ -87,6 +69,6 @@
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"
       ></script>
-      <script type="text/javascript" src="product.js"></script>
+      <script type="text/javascript" src="test-product.js"></script>
   </body>
 </html>
