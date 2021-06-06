@@ -15,6 +15,7 @@ const fetchDatas = async () => {
 function numberWithSpaces(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
+
 // AFFICHER LES DONNEES DU PRODUIT
 const showDatas = async () => {
   await fetchDatas();
@@ -52,29 +53,65 @@ const showDatas = async () => {
 };
 showDatas();
 
-// == POUR LE COMPTEUR DU PANIER ==
-const getCartClass = document.querySelector(".cart");
-let cartCounter = 0;
+// CREER LA CLASSE PRODUIT QUI SERT DE MODELE DE PRODUIT DANS LE PANIER
+class Products {
+  constructor(name, price, quantity) {
+    this.name = name;
+    this.price = price;
+    this.quantity = quantity;
+  }
+
+  get totalPrice() {
+    return this.price * this.quantity;
+  }
+}
+
+// INITIALISER L'OBJET PRODUIT ET LE PANIER QUI CONTIENDRA LES DONNEES
+let product1 = new Products("init", 40, 2); //!!\\ METTRE LES DONNEES EN DYNAMIQUE
+let product2 = new Products("init", 10, 2); //!!\\ METTRE LES DONNEES EN DYNAMIQUE
+
+let cart = [];
 
 // AJOUTER LE PRODUIT AU PANIER
 function addToCart() {
-  localStorage.setItem("productInCart", JSON.stringify(data));
+  if (cart == product) {
+    product.quantity++;
+  } else {
+    cart = [product1, product2] ;
+  }
+}
+
+// == POUR LE COMPTEUR DU PANIER ==
+const getCartClass = document.querySelector(".cart");
+let cartCounter = 0; //!!\\ RECUPERER LA SOMME DES "PRODUCT.QUANTITY" DANS LA VARIABLE CART
+
+
+//!!\\ COMPORTEMENT DU TABLEAU CART ATTENDU :
+// LE TABLEAU "CART" S'INCREMENTE AVEC LES PRODUITS
+cart = [product1, product2] ;
+localStorage.setItem('productsInCart', JSON.stringify(cart));
+
+// MISE A JOUR DU PANIER
+function updateCart() {
+  localStorage.setItem('productsInCart', JSON.stringify(cart));
 }
 
 // AJOUTER UNE UNITEE AU COMPTEUR
 function oneAddToCounter() {
+  addToCart();
+  updateCart();
   cartCounter++;
   getCartClass.innerHTML = cartCounter;
   // AFFICHER LE COMPTEUR APRES AJOUT
   getCartClass.classList.add("cart--active");
-  addToCart()
+  console.log(cart);
   return cartCounter;
 }
 
 // RETIRER LE PRODUIT DU PANIER
-function addToCart() {
-  localStorage.setItem("productInCart", JSON.stringify(data));
-}
+// function addToCart() {
+//   localStorage.setItem("productInCart", JSON.stringify(data));
+// }
 
 // RETIRER UNE UNITEE AU COMPTEUR
 function oneRemoveToCounter() {
@@ -87,7 +124,3 @@ function oneRemoveToCounter() {
   }
   return cartCounter;
 }
-
-// UTILISATION DU LOCAL STORAGE
-let cart = localStorage;
-

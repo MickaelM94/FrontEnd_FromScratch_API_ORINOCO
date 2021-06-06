@@ -15,7 +15,6 @@ const fetchDatas = async () => {
 function numberWithSpaces(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
-
 // AFFICHER LES DONNEES DU PRODUIT
 const showDatas = async () => {
   await fetchDatas();
@@ -53,39 +52,46 @@ const showDatas = async () => {
 };
 showDatas();
 
-// == INITIALISATION DU PANIER ==
-let cart = [];
+class Products {
+  constructor(name, price, quantity) {
+    this.name = name;
+    this.price = price;
+    this.quantity = quantity;
+  }
+  get TotalPrice() {
+    return this.price * this.quantity;
+  }
+}
+
+let product1 = new Products('Machin', 20, 2);
+let product2 = new Products('Bidule', 10, 2);
 
 
-// INITIALISER LE COMPTEUR DU PANIER
+let cart = [product1, product2];
+
+// == POUR LE COMPTEUR DU PANIER ==
 const getCartClass = document.querySelector(".cart");
-let cartCounter;
-if (cartCounter == 0) {
-  localStorage.setItem("quantityInCart", "0");
-} else {
-  cartCounter = JSON.parse(localStorage.getItem("quantityInCart"));
-};
-
-// AFFICHER LE COMPTEUR SI REMPLI
-getCartClass.classList.add("cart--active");
+let cartCounter = 0;
 
 // AJOUTER LE PRODUIT AU PANIER
 function addToCart() {
-  cart = cart.push[JSON.stringify({id: data.id, name: data.name, price: data.price})];
   localStorage.setItem("productInCart", JSON.stringify(cart));
 }
 
 // AJOUTER UNE UNITEE AU COMPTEUR
 function oneAddToCounter() {
   cartCounter++;
-  localStorage.setItem("quantityInCart", JSON.stringify(cartCounter));
   getCartClass.innerHTML = cartCounter;
-  addToCart();
+  // AFFICHER LE COMPTEUR APRES AJOUT
+  getCartClass.classList.add("cart--active");
+  addToCart()
   return cartCounter;
 }
 
 // RETIRER LE PRODUIT DU PANIER
-
+// function addToCart() {
+//   localStorage.setItem("productInCart", JSON.stringify(data));
+// }
 
 // RETIRER UNE UNITEE AU COMPTEUR
 function oneRemoveToCounter() {
@@ -99,4 +105,3 @@ function oneRemoveToCounter() {
   return cartCounter;
 }
 
-localStorage.setItem("productInCart", JSON.stringify(cart))

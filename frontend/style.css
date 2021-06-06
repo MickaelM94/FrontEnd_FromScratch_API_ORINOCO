@@ -261,6 +261,7 @@ nav {
 }
 .product__infos select {
   border: none;
+  background: transparent;
   color: #6c757d;
 }
 .product__infos div {
