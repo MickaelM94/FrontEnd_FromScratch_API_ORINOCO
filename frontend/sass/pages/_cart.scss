@@ -37,6 +37,20 @@
     }
   }
 
+  .add, .remove, .delete {
+    border: none;
+    padding: 0px 20px;
+    width: fit-content;
+    border-radius: 7px;
+    font-size: large;
+    @include shadow-button;
+    transition: 0.5s;
+  }
+
+  .delete {
+    background-color: rgb(231, 146, 146);
+  }
+
   .cart__productName,
   .delete,
   .cart__productQuantity {
@@ -46,6 +60,11 @@
 
 .quantity {
   margin: auto 20px;
+}
+
+hr {
+  width: 50%;
+  margin: auto!important;
 }
 
 .orderTotal {

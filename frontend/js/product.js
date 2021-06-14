@@ -2,7 +2,11 @@
 const dataProduct = document.querySelector(".product__page");
 let id = window.location.search.substr(1);
 let data;
-const getLensesId = document.querySelector("#lense");
+let cart = [];
+
+if (localStorage.getItem("productsInCart")) {
+  cart = JSON.parse(localStorage.getItem("productsInCart"));
+}
 
 // RECUPERER LES DONNEES DU PRODUIT CIBLE
 const fetchDatas = async () => {
@@ -53,69 +57,77 @@ const showDatas = async () => {
 };
 showDatas();
 
-// CREER LA CLASSE PRODUIT QUI SERT DE MODELE DE PRODUIT DANS LE PANIER
-class Products {
-  constructor(name, price, quantity) {
-    this.name = name;
-    this.price = price;
-    this.quantity = quantity;
-  }
-
-  get totalPrice() {
-    return this.price * this.quantity;
-  }
-}
-
-// INITIALISER L'OBJET PRODUIT ET LE PANIER QUI CONTIENDRA LES DONNEES
-let product1 = new Products("init", 40, 2); //!!\\ METTRE LES DONNEES EN DYNAMIQUE
-let product2 = new Products("init", 10, 2); //!!\\ METTRE LES DONNEES EN DYNAMIQUE
-
-let cart = [];
+// == POUR LE COMPTEUR DU PANIER ==
+const getCartClass = document.querySelector(".cart");
+let cartCounter = 0;
+cart.forEach((element) => {
+  // PARCOURT LA LISTE DES PRODUITS DANS LE PANIER
+  cartCounter += element[1]; // AJOUTE LA QUANTITÉ DU PRODUIT A LA VARIABLE
+});
+getCartClass.innerHTML = cartCounter; // AFFICHE LA QUANTITÉ DES PRODUITS DANS LE PANIER
+getCartClass.classList.add("cart--active");
 
 // AJOUTER LE PRODUIT AU PANIER
 function addToCart() {
-  if (cart == product) {
-    product.quantity++;
+  // SI LE PANIER EST VIDE
+  if (cart.length == 0) {
+    cart.push([data, 1]); // ON AJOUTE LE PRODUIT AVEC UNE QUANTITÉ A 1
   } else {
-    cart = [product1, product2] ;
+    let addElement = false; // BOOLÉEN QUI INDIQUE SI UN PRODUIT A ÉTÉ AJOUTÉ
+    cart.forEach((element) => {
+      // SI L'ID DU PRODUIT A AJOUTER EST DÉJA DANS LE TABLEAU
+      if (element[0]._id == data._id) {
+        element[1]++; // ON INCREMENTE LA QUANTITÉ
+        addElement = true;
+      }
+    });
+    // SI AUCUN PRODUIT A ÉTÉ AJOUTÉ AU PANIER
+    if (!addElement) {
+      cart.push([data, 1]); // ON AJOUTE LES DONNÉES DU PRODUIT AVEC LA QUANTITÉ A 1
+    }
   }
-}
-
-// == POUR LE COMPTEUR DU PANIER ==
-const getCartClass = document.querySelector(".cart");
-let cartCounter = 0; //!!\\ RECUPERER LA SOMME DES "PRODUCT.QUANTITY" DANS LA VARIABLE CART
-
-
-//!!\\ COMPORTEMENT DU TABLEAU CART ATTENDU :
-// LE TABLEAU "CART" S'INCREMENTE AVEC LES PRODUITS
-cart = [product1, product2] ;
-localStorage.setItem('productsInCart', JSON.stringify(cart));
-
-// MISE A JOUR DU PANIER
-function updateCart() {
-  localStorage.setItem('productsInCart', JSON.stringify(cart));
+  // ON ENVOIT LE CONTENU DU PANIER DANS LE LOCAL STORAGE.
+  localStorage.setItem("productsInCart", JSON.stringify(cart));
 }
 
 // AJOUTER UNE UNITEE AU COMPTEUR
 function oneAddToCounter() {
   addToCart();
-  updateCart();
   cartCounter++;
-  getCartClass.innerHTML = cartCounter;
   // AFFICHER LE COMPTEUR APRES AJOUT
+  getCartClass.innerHTML = cartCounter;
   getCartClass.classList.add("cart--active");
-  console.log(cart);
   return cartCounter;
 }
 
+// SUPPRIMER UN ARTICLE
+function removeFromCart(product) {
+  cart = cart.filter((element) => element[0] !== product);
+  localStorage.setItem("productsInCart", JSON.stringify(cart));
+}
+
 // RETIRER LE PRODUIT DU PANIER
-// function addToCart() {
-//   localStorage.setItem("productInCart", JSON.stringify(data));
-// }
+function removeToCart() {
+  // SI LE PANIER N'EST PAS VIDE
+  if (cart.length !== 0) {
+    cart.forEach((element) => {
+      // SI LE PRODUIT EST DÉJA PRÉSENT DANS LE TABLEAU
+      if (element[0]._id == data._id) {
+        element[1]--; // ON RETIRE UNE QUANTITÉ AU PRODUIT
+        cartCounter--;
+        // SI LA QUANTITÉ D'UN PRODUIT EST = 0
+        if (element[1] == 0) {
+          removeFromCart(element[0]);
+        }
+      }
+    });
+  }
+  localStorage.setItem("productsInCart", JSON.stringify(cart));
+}
 
 // RETIRER UNE UNITEE AU COMPTEUR
 function oneRemoveToCounter() {
-  cartCounter--;
+  removeToCart();
   getCartClass.innerHTML = cartCounter;
   // AFFICHER LE COMPTEUR APRES SUPPRESSION
   if (cartCounter <= 0) {

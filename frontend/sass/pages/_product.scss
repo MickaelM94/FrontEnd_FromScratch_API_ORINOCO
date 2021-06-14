@@ -49,6 +49,12 @@
         @include shadow;
       }
     }
+    .productCounter {
+      height: 30px;
+      padding: 0px 20px;
+      width: fit-content;
+      font-size: large;
+    }
   }
 }
 
