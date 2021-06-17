@@ -13,33 +13,41 @@ getCartClass.innerHTML = cartCounter; // AFFICHE LA QUANTITÉ DES PRODUITS DANS 
 getCartClass.classList.add("cart--active");
 
 // == POUR LA PAGE PANIER ==
+
+// CIBLER LE PARAGRAPHE SI LE PANIER EST VIDE
+let getEmptyClass = document.querySelector(".empty");
+
 // CIBLER L'ELEMENT QUI AFFICHERA LES PRODUITS
 let getCartClassList = document.querySelector(".cart__list");
+
+// CIBLER L'ELEMENT QUI AFFICHERA LE FORMULAIRE
+let getCartOrderClass = document.querySelector(".cart__order");
 
 // SEPARATEUR DE MILLIER
 function numberWithSpaces(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
+// CONDITION D'AFFICHAGE SI LE PANIER EST VIDE
+if (cartCounter == 0) {
+  getEmptyClass.style.display = "block";
+  getCartOrderClass.style.display = "none";
+} else {
+  getEmptyClass.style.display = "none";
 // RECUPERER ET AFFICHER LES PRODUITS DU LOCAL STORAGE
 cart = JSON.parse(localStorage.getItem("productsInCart"));
 cart.forEach((element) => {
   getCartClassList.innerHTML += `
+    <a href="../frontend/product.html?${element[0]._id}">
     <div id="${element[0]._id}" class="cart__product">
         <p class="cart__productName">${element[0].name}</p>
         <p class="cart__productPrice">${numberWithSpaces(element[0].price)}</p>
-        <p class="cart__productQuantity"><button class="add">
-        <i class="fas fa-plus"></i>
-    </button></i><span class="quantity">
-    ${element[1]}
-    </span><button class="remove">
-        <i class="fas fa-minus"></i>
-    </button></p>
+        <p>x<span class="quantity">${element[1]}</span></p>
         <p>Total : <span class="total">
         ${numberWithSpaces(element[0].price * element[1])}
         </span></p>
-        <p class="delete"><i class="far fa-trash-alt"></i></p>
     </div>
+    </a>
     `;
 });
 // CIBLER TOUS LES BOUTONS " + "
@@ -72,3 +80,11 @@ cart.forEach((element) => {
 // AFFICHER LE MONTANT TOTAL
 let getorderTotalClass = document.querySelector(".orderTotal");
 getorderTotalClass.innerHTML = numberWithSpaces(orderTotal);
+
+// FORMULAIRE DE COMMANDE
+const getOrderForm = document.querySelector("#orderForm");
+
+// FIN DE LA CONDITION
+};
+
+

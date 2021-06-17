@@ -51,15 +51,36 @@
         </nav>
     </header>
     <main class="cart__page">
-    <!-- <p>Votre panier est vide</p> -->  
+    <p class="empty">Votre panier est vide, <br>cliquez <a href="./index.html#products">ici</a> pour voir nos produits.</p> 
         <div class="cart__list">
         </div>
-        <hr>
-        <div class="cart__footer">
+        <div class="cart__order">
+          <hr>
             <p>Total de la commande : <span class="orderTotal">100 000</span></p>
-            <a class="product__link btn btn-outline-secondary" href="#">
-                Passer commande
-             </a>
+             <form id="orderForm">
+               <div class="fields">
+                <div class="mb-3">
+                  <input placeholder="Prénom" type="text" class="form-control" id="first" required>
+                </div>
+                <div class="mb-3">
+                  <input placeholder="Nom" type="text" class="form-control" id="last" required>
+                </div>
+                <div class="mb-3">
+                  <input placeholder="Email" type="email" class="form-control" id="email">
+                </div>
+                <div class="mb-3">
+                  <input placeholder="Rue" type="street" class="form-control" id="street">
+                </div>
+                <div class="mb-3">
+                  <input placeholder="Code postal" type="test" class="form-control" id="code">
+                </div>
+                <div class="mb-3">
+                  <input placeholder="Ville" type="city" class="form-control" id="city">
+                </div>
+               </div>
+              
+              <button type="submit" class="mt-4 product__link btn btn-outline-secondary">Passer commande</button>
+            </form>
         </div>
     </main>
     <footer>

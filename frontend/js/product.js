@@ -67,6 +67,7 @@ cart.forEach((element) => {
 getCartClass.innerHTML = cartCounter; // AFFICHE LA QUANTITÉ DES PRODUITS DANS LE PANIER
 getCartClass.classList.add("cart--active");
 
+
 // AJOUTER LE PRODUIT AU PANIER
 function addToCart() {
   // SI LE PANIER EST VIDE
