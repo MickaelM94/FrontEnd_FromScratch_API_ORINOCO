@@ -34,10 +34,10 @@ if (cartCounter == 0) {
   getCartOrderClass.style.display = "none";
 } else {
   getEmptyClass.style.display = "none";
-// RECUPERER ET AFFICHER LES PRODUITS DU LOCAL STORAGE
-cart = JSON.parse(localStorage.getItem("productsInCart"));
-cart.forEach((element) => {
-  getCartClassList.innerHTML += `
+  // RECUPERER ET AFFICHER LES PRODUITS DU LOCAL STORAGE
+  cart = JSON.parse(localStorage.getItem("productsInCart"));
+  cart.forEach((element) => {
+    getCartClassList.innerHTML += `
     <a href="../frontend/product.html?${element[0]._id}">
     <div id="${element[0]._id}" class="cart__product">
         <p class="cart__productName">${element[0].name}</p>
@@ -49,42 +49,68 @@ cart.forEach((element) => {
     </div>
     </a>
     `;
-});
-// CIBLER TOUS LES BOUTONS " + "
-const getAddsClass = document.querySelectorAll(".add");
-
-// AJOUTER UNE QUANTITÉ
-getAddsClass.forEach((element) => {
-  element.addEventListener("click", function (event) {
-    console.log("L'id est " + event.target.id);
-    // SI L'ID DU PRODUIT CLIQUÉ EST LE MÊME QUE L'ID D'UN PRODUIT DANS LE PANIER
-    // if (event.target.id == element[0]._id) {
-    //   element[1]++;
-    // };
   });
-  // localStorage.setItem("productsInCart", JSON.stringify(cart));
-});
 
-// CIBLER TOUS LES BOUTONS " - "
-const getRemovesClass = document.querySelectorAll(".remove");
+  // CALCULER LE TOTAL DE LA COMMANDE
+  let orderTotal = 0;
+  cart.forEach((element) => {
+    // MULTIPLIER LE PRIX PAR LA QUANTITÉ
+    orderTotal += element[0].price * element[1]; 
+  });
 
-// CIBLER TOUS LES BOUTONS SUPPRIMER
-const getDeletesClass = document.querySelectorAll(".delete");
+  // AFFICHER LE MONTANT TOTAL
+  let getorderTotalClass = document.querySelector(".orderTotal");
+  getorderTotalClass.innerHTML = numberWithSpaces(orderTotal);
 
-// CALCULER LE TOTAL DE LA COMMANDE
-let orderTotal = 0;
-cart.forEach((element) => {
-  orderTotal += element[0].price * element[1]; // MULTIPLIER LE PRIX PAR LA QUANTITÉ
-});
+  // RECUPERER L'ID DES PRODUITS DU PANIER
+  let products = [];
+  cart.forEach((element) => {
+    products.push(element[0]._id);
+  });
 
-// AFFICHER LE MONTANT TOTAL
-let getorderTotalClass = document.querySelector(".orderTotal");
-getorderTotalClass.innerHTML = numberWithSpaces(orderTotal);
+  // ENVOYER LA COMMANDE
+  function sendOrder() {
+    // RÉCUPÉRER LES DONNÉES DU FORMULAIRE
+    let firstName = document.querySelector("#firstName").value;
+    let lastName = document.querySelector("#lastName").value;
+    let email = document.querySelector("#email").value;
+    let address = document.querySelector("#address").value;
+    let city = document.querySelector("#city").value;
 
-// FORMULAIRE DE COMMANDE
-const getOrderForm = document.querySelector("#orderForm");
+    let contact = {
+      firstName : firstName,
+      lastName : lastName,
+      email : email,
+      address : address,
+      city : city,
+    };
+    console.log(contact);
+    console.log(products)
 
-// FIN DE LA CONDITION
-};
+    let orderToSend = { contact, products };
 
+    confirm("Confirmez-vous l'envoi du formulaire ?");
 
+    // DEFINIR LES PARAMETRES DE LA REQUETE
+    const urlOrder = "http://localhost:3000/api/cameras/order";
+    const postRequest = {
+      method: "POST",
+      header: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderToSend)
+    };
+
+    fetch(urlOrder, postRequest)
+    .then( (res) => {
+      if (res.ok) {
+        alert('Le formulaire a été envoyé');
+        res.json()
+      } else {
+        alert("Erreur de type " + res.status);
+      };
+  });
+
+  // FIN DE LA CONDITION "SI LE PANIER N'EST PAS VIDE"
+}}

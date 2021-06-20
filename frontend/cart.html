@@ -57,28 +57,26 @@
         <div class="cart__order">
           <hr>
             <p>Total de la commande : <span class="orderTotal">100 000</span></p>
-             <form id="orderForm">
-               <div class="fields">
+             <form id="orderForm" onsubmit="sendOrder()">
+               <div class="fields-top">
                 <div class="mb-3">
-                  <input placeholder="Prénom" type="text" class="form-control" id="first" required>
+                  <input placeholder="Prénom" type="text" class="form-control" id="firstName" required>
                 </div>
                 <div class="mb-3">
-                  <input placeholder="Nom" type="text" class="form-control" id="last" required>
+                  <input placeholder="Nom" type="text" class="form-control" id="lastName" required>
                 </div>
                 <div class="mb-3">
-                  <input placeholder="Email" type="email" class="form-control" id="email">
+                  <input placeholder="Email" type="email" class="form-control" id="email" required>
+                </div>
+              </div>
+              <div class="fields-bottom">
+                <div class="mb-3">
+                  <input placeholder="Rue" type="address" class="form-control" id="address" required>
                 </div>
                 <div class="mb-3">
-                  <input placeholder="Rue" type="street" class="form-control" id="street">
+                  <input placeholder="Ville" type="city" class="form-control" id="city" required>
                 </div>
-                <div class="mb-3">
-                  <input placeholder="Code postal" type="test" class="form-control" id="code">
-                </div>
-                <div class="mb-3">
-                  <input placeholder="Ville" type="city" class="form-control" id="city">
-                </div>
-               </div>
-              
+              </div>
               <button type="submit" class="mt-4 product__link btn btn-outline-secondary">Passer commande</button>
             </form>
         </div>

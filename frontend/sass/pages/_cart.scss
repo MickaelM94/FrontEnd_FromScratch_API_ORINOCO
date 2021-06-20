@@ -87,9 +87,14 @@ hr {
 
   form {
     width: 70%;
-    .fields {
+    .fields-top {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      column-gap: 10px;
+    }
+    .fields-bottom {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       column-gap: 10px;
     }
   }

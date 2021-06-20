@@ -412,9 +412,14 @@ hr {
   form {
     width: 70%;
   }
-  form .fields {
+  form .fields-top {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+  }
+  form .fields-bottom {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     column-gap: 10px;
   }
 }
