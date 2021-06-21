@@ -20,11 +20,14 @@ const fetchCameras = async () => {
   cameras = await fetch("http://localhost:3000/api/cameras").then((res) =>
     res.json()
   );
+  console.log ("Les données de l'API sont chargées")
 };
+
 // SEPARATEUR DE MILLIER
 function numberWithSpaces(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
+
 // AFFICHER LES DONNEES EN LISTE
 const showCameras = async () => {
   await fetchCameras();

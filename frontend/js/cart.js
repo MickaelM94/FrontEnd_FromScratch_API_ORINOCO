@@ -78,17 +78,21 @@ if (cartCounter == 0) {
     let city = document.querySelector("#city").value;
 
     let contact = {
-      firstName : firstName,
-      lastName : lastName,
-      email : email,
-      address : address,
-      city : city,
+      "firstName" : firstName,
+      "lastName" : lastName,
+      "email" : email,
+      "address" : address,
+      "city" : city,
     };
+
+    let order_id = JSON.stringify(numberWithSpaces((Date.now())));
+
     console.log(contact);
-    console.log(products)
+    console.log(products);
+    console.log(order_id);
 
-    let orderToSend = { contact, products };
 
+    let orderToSend = { contact, products, order_id };
     confirm("Confirmez-vous l'envoi du formulaire ?");
 
     // DEFINIR LES PARAMETRES DE LA REQUETE
@@ -96,8 +100,8 @@ if (cartCounter == 0) {
     const postRequest = {
       method: "POST",
       header: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(orderToSend)
     };
