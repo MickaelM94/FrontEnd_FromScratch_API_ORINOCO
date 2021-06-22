@@ -73,6 +73,10 @@ hr {
 
 /* == RESPONSIVE == */
 @media (min-width: 400px) {
+  form {
+    max-width: 70%;
+  }
+
   .cart__list {
     max-width: 700px;
   }
@@ -84,9 +88,7 @@ hr {
     column-gap: 20px;
     row-gap: 20px;
   }
-
-  form {
-    width: 70%;
+  
     .fields-top {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -98,4 +100,3 @@ hr {
       column-gap: 10px;
     }
   }
-}

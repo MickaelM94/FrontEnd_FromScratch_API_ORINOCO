@@ -397,6 +397,10 @@ hr {
 
 /* == RESPONSIVE == */
 @media (min-width: 400px) {
+  form {
+    max-width: 70%;
+  }
+
   .cart__list {
     max-width: 700px;
   }
@@ -409,19 +413,31 @@ hr {
     row-gap: 20px;
   }
 
-  form {
-    width: 70%;
-  }
-  form .fields-top {
+  .fields-top {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 10px;
   }
-  form .fields-bottom {
+
+  .fields-bottom {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 10px;
   }
+}
+.confirm__bloc p {
+  margin: 40px auto !important;
+  padding: 20px;
+  text-align: center;
+}
+.confirm__bloc .confirm__name,
+.confirm__bloc .confirm__id,
+.confirm__bloc .confirm__price {
+  color: #008766;
+  font-weight: bold;
+}
+.confirm__bloc .confirm__price::after {
+  content: " €";
 }
 
 /*# sourceMappingURL=style.css.map */

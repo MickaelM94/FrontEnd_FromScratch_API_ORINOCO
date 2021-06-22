@@ -1,12 +1,31 @@
+// == POUR LE COMPTEUR DU PANIER ==
+let cart = [];
+let cartCounter = 0;
+const getCartClass = document.querySelector(".cart");
+
+// RECUPERER LE NOMBRE DE PRODUITS DANS LE PANIER
+function getCartCounter() {
+  if (localStorage.getItem("productsInCart")) {
+    cart = JSON.parse(localStorage.getItem("productsInCart"));
+  }
+  // PARCOURT LA LISTE DES PRODUITS DANS LE PANIER
+  cart.forEach((element) => {
+    // AJOUTE LA QUANTITÉ DU PRODUIT A LA VARIABLE
+    cartCounter += element[1];
+  });
+  // AFFICHE LA QUANTITÉ DES PRODUITS DANS LE PANIER
+  getCartClass.innerHTML = cartCounter;
+  if (cartCounter > 0) {
+    getCartClass.classList.add("cart--active");
+  }
+}
+
+getCartCounter();
+
 // == POUR LA PAGE PRODUCT.HTML ==
 const dataProduct = document.querySelector(".product__page");
 let id = window.location.search.substr(1);
 let product;
-let cart = [];
-
-if (localStorage.getItem("productsInCart")) {
-  cart = JSON.parse(localStorage.getItem("productsInCart"));
-}
 
 // RECUPERER LES DONNEES DU PRODUIT CIBLE
 const fetchProduct = async () => {
@@ -37,9 +56,6 @@ const showProduct = async () => {
             <label for="lenses">Lentilles :</label>
             <select name="lenses" id="lenses">
                 <option value="default">Choisissez une option</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
             </select>
             <div>
                 <p>
@@ -54,19 +70,23 @@ const showProduct = async () => {
             </div>
         </div>
          `;
+
+    // AFFICHER LES DIFFERENTES LENTILLES
+    getLensesId = document.querySelector("#lenses");
+    value = 1;
+    function showLenses() {
+      product.lenses.forEach((element) => {
+        getLensesId.innerHTML += `
+        <option value="${value}">${element}</option>
+        `
+        value ++;
+      });
+    }
+
+    showLenses();
 };
+
 showProduct();
-
-// == POUR LE COMPTEUR DU PANIER ==
-const getCartClass = document.querySelector(".cart");
-let cartCounter = 0;
-cart.forEach((element) => {
-  // PARCOURT LA LISTE DES PRODUITS DANS LE PANIER
-  cartCounter += element[1]; // AJOUTE LA QUANTITÉ DU PRODUIT A LA VARIABLE
-});
-getCartClass.innerHTML = cartCounter; // AFFICHE LA QUANTITÉ DES PRODUITS DANS LE PANIER
-getCartClass.classList.add("cart--active");
-
 
 // AJOUTER LE PRODUIT AU PANIER
 function addToCart() {

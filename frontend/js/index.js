@@ -1,16 +1,26 @@
 // == POUR LE COMPTEUR DU PANIER ==
 let cart = [];
-if (localStorage.getItem("productsInCart")) {
-  cart = JSON.parse(localStorage.getItem("productsInCart"));
-}
-const getCartClass = document.querySelector(".cart");
 let cartCounter = 0;
-cart.forEach((element) => {
+const getCartClass = document.querySelector(".cart");
+
+// RECUPERER LE NOMBRE DE PRODUITS DANS LE PANIER
+function getCartCounter() {
+  if (localStorage.getItem("productsInCart")) {
+    cart = JSON.parse(localStorage.getItem("productsInCart"));
+  }
   // PARCOURT LA LISTE DES PRODUITS DANS LE PANIER
-  cartCounter += element[1]; // AJOUTE LA QUANTITÉ DU PRODUIT A LA VARIABLE
-});
-getCartClass.innerHTML = cartCounter; // AFFICHE LA QUANTITÉ DES PRODUITS DANS LE PANIER
-getCartClass.classList.add("cart--active");
+  cart.forEach((element) => {
+    // AJOUTE LA QUANTITÉ DU PRODUIT A LA VARIABLE
+    cartCounter += element[1];
+  });
+  // AFFICHE LA QUANTITÉ DES PRODUITS DANS LE PANIER
+  getCartClass.innerHTML = cartCounter;
+  if (cartCounter > 0) {
+    getCartClass.classList.add("cart--active");
+  }
+}
+
+getCartCounter();
 
 // == POUR LA PAGE INDEX.HTML ==
 const productList = document.querySelector(".products__list");
@@ -20,7 +30,7 @@ const fetchCameras = async () => {
   cameras = await fetch("http://localhost:3000/api/cameras").then((res) =>
     res.json()
   );
-  console.log ("Les données de l'API sont chargées")
+  console.log("Les données de l'API sont chargées");
 };
 
 // SEPARATEUR DE MILLIER

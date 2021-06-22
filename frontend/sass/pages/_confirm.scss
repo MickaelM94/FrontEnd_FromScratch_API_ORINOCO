@@ -1,0 +1,16 @@
+.confirm__bloc {
+  p {
+    margin: 40px auto !important;
+    padding: 20px;
+    text-align: center;
+  }
+  .confirm__name,
+  .confirm__id,
+  .confirm__price {
+    color: $tertiary;
+    font-weight: bold;
+  }
+  .confirm__price::after {
+    content: " €";
+  }
+}
