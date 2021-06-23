@@ -1,12 +1,16 @@
 // == POUR LE COMPTEUR DU PANIER ==
+
+// RECUPERER LE NOMBRE DE PRODUITS DANS LE PANIER
 let cart = [];
 let cartCounter = 0;
 const getCartClass = document.querySelector(".cart");
 
-// RECUPERER LE NOMBRE DE PRODUITS DANS LE PANIER
 function getCartCounter() {
   if (localStorage.getItem("productsInCart")) {
     cart = JSON.parse(localStorage.getItem("productsInCart"));
+    console.log(
+      "Les produits du localstorage ont été ajouté dans la variable 'cart'"
+    );
   }
   // PARCOURT LA LISTE DES PRODUITS DANS LE PANIER
   cart.forEach((element) => {
@@ -23,11 +27,12 @@ function getCartCounter() {
 getCartCounter();
 
 // == POUR LA PAGE PRODUCT.HTML ==
+
+// RECUPERER LES DONNEES DU PRODUIT CIBLE
 const dataProduct = document.querySelector(".product__page");
 let id = window.location.search.substr(1);
 let product;
 
-// RECUPERER LES DONNEES DU PRODUIT CIBLE
 const fetchProduct = async () => {
   product = await fetch(`http://localhost:3000/api/cameras/${id}`).then((res) =>
     res.json()
@@ -71,19 +76,20 @@ const showProduct = async () => {
         </div>
          `;
 
-    // AFFICHER LES DIFFERENTES LENTILLES
-    getLensesId = document.querySelector("#lenses");
-    value = 1;
-    function showLenses() {
-      product.lenses.forEach((element) => {
-        getLensesId.innerHTML += `
-        <option value="${value}">${element}</option>
-        `
-        value ++;
-      });
-    }
+  // AFFICHER LES DIFFERENTES LENTILLES
+  getLensesId = document.querySelector("#lenses");
+  value = 1;
 
-    showLenses();
+  function showLenses() {
+    product.lenses.forEach((element) => {
+      getLensesId.innerHTML += `
+        <option value="${value}">${element}</option>
+        `;
+      value++;
+    });
+  }
+
+  showLenses();
 };
 
 showProduct();
@@ -93,21 +99,27 @@ function addToCart() {
   // SI LE PANIER EST VIDE
   if (cart.length == 0) {
     cart.push([product, 1]); // ON AJOUTE LE PRODUIT AVEC UNE QUANTITÉ A 1
-    alert("Vous venez d'ajouter un " + product.name + " à votre panier")
+    alert("Vous venez d'ajouter un " + product.name + " à votre panier");
   } else {
     let addElement = false; // BOOLÉEN QUI INDIQUE SI UN PRODUIT A ÉTÉ AJOUTÉ
     cart.forEach((element) => {
       // SI L'ID DU PRODUIT A AJOUTER EST DÉJA DANS LE TABLEAU
       if (element[0]._id == product._id) {
         element[1]++; // ON INCREMENTE LA QUANTITÉ
-        alert("Ajout au panier : Vous avez maintenant " + element[1] + " " + product.name + " dans votre panier")
+        alert(
+          "Ajout au panier : Vous avez maintenant " +
+            element[1] +
+            " " +
+            product.name +
+            " dans votre panier"
+        );
         addElement = true;
       }
     });
     // SI AUCUN PRODUIT A ÉTÉ AJOUTÉ AU PANIER
     if (!addElement) {
       cart.push([product, 1]); // ON AJOUTE LES DONNÉES DU PRODUIT AVEC LA QUANTITÉ A 1
-      alert("Vous venez d'ajouter un " + product.name + " à votre panier")
+      alert("Vous venez d'ajouter un " + product.name + " à votre panier");
     }
   }
   // ON ENVOIT LE CONTENU DU PANIER DANS LE LOCAL STORAGE.
@@ -127,6 +139,7 @@ function oneAddToCounter() {
 // SUPPRIMER UN ARTICLE
 function removeFromCart(productSelected) {
   cart = cart.filter((element) => element[0] !== productSelected);
+  console.log("La variable 'cart' a été mise à jour");
   localStorage.setItem("productsInCart", JSON.stringify(cart));
 }
 
@@ -140,11 +153,17 @@ function removeToCart() {
         element[1]--; // ON RETIRE UNE QUANTITÉ AU PRODUIT
         cartCounter--;
         if (element[1] > 0) {
-          alert("Retrait du panier : Vous avez maintenant " + element[1] + " " + product.name + " dans votre panier")
+          alert(
+            "Retrait du panier : Vous avez maintenant " +
+              element[1] +
+              " " +
+              product.name +
+              " dans votre panier"
+          );
         }
         // SI LA QUANTITÉ D'UN PRODUIT EST = 0
         if (element[1] == 0) {
-          alert("Il n'y a plus de " + product.name + " dans votre panier")
+          alert("Il n'y a plus de " + product.name + " dans votre panier");
           removeFromCart(element[0]);
         }
       }

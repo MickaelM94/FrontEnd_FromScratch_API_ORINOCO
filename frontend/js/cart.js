@@ -1,12 +1,16 @@
 // == POUR LE COMPTEUR DU PANIER ==
+
+// RECUPERER LE NOMBRE DE PRODUITS DANS LE PANIER
 let cart = [];
 let cartCounter = 0;
 const getCartClass = document.querySelector(".cart");
 
-// RECUPERER LE NOMBRE DE PRODUITS DANS LE PANIER
 function getCartCounter() {
   if (localStorage.getItem("productsInCart")) {
     cart = JSON.parse(localStorage.getItem("productsInCart"));
+    console.log(
+      "Les produits du localstorage ont été ajoutés dans la variable 'cart'"
+    );
   }
   // PARCOURT LA LISTE DES PRODUITS DANS LE PANIER
   cart.forEach((element) => {
@@ -24,10 +28,6 @@ getCartCounter();
 
 // == POUR LA PAGE PANIER ==
 
-let getEmptyClass = document.querySelector(".empty");
-let getCartClassList = document.querySelector(".cart__list");
-let getCartOrderClass = document.querySelector(".cart__order");
-
 // SEPARATEUR DE MILLIER
 function numberWithSpaces(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -37,6 +37,11 @@ function numberWithSpaces(x) {
 function numberWithHyphen(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-");
 }
+
+// RECUPERER LES CLASSES CSS
+let getEmptyClass = document.querySelector(".empty");
+let getCartClassList = document.querySelector(".cart__list");
+let getCartOrderClass = document.querySelector(".cart__order");
 
 // CONDITION D'AFFICHAGE SI LE PANIER EST VIDE
 if (cartCounter == 0) {
@@ -72,7 +77,6 @@ if (cartCounter == 0) {
   let orderTotal = 0;
 
   function calculateTotal() {
-    orderTotal = 0;
     cart.forEach((element) => {
       // MULTIPLIER LE PRIX PAR LA QUANTITÉ
       orderTotal += element[0].price * element[1];
@@ -87,13 +91,18 @@ if (cartCounter == 0) {
   // RECUPERER L'ID DES PRODUITS DU PANIER
   let products = [];
 
-  function getIdsOfCart() {
+  function getIdsOfProducts() {
     cart.forEach((element) => {
       products.push(element[0]._id);
+      console.log(
+        "L'ID du produit " +
+          element[0].name +
+          " a été ajouté à la variable 'products'"
+      );
     });
   }
 
-  getIdsOfCart();
+  getIdsOfProducts();
 
   // ENVOYER LA COMMANDE
   function sendOrder() {
@@ -119,6 +128,8 @@ if (cartCounter == 0) {
         address: address,
         city: city,
       };
+
+      console.log("L'objet 'contact' a bien été créé à partir du formulaire");
     }
 
     createContact();
@@ -128,6 +139,7 @@ if (cartCounter == 0) {
 
     function createIdOrder() {
       order_id = JSON.stringify(numberWithHyphen(Date.now()));
+      console.log("La fonction createIdOrder a été éxécutée avec succès");
     }
 
     createIdOrder();
@@ -137,7 +149,7 @@ if (cartCounter == 0) {
 
     function createBodyRequest() {
       orderToSend = { contact, products, order_id };
-      console.log(orderToSend);
+      console.log("La fonction createBodyRequest a été éxécutée avec succès");
     }
 
     createBodyRequest();
@@ -157,6 +169,7 @@ if (cartCounter == 0) {
         },
         body: JSON.stringify(orderToSend),
       };
+      console.log("La fonction createParamsRequest a été éxécutée avec succès");
     }
 
     createParamsRequest();
@@ -168,7 +181,6 @@ if (cartCounter == 0) {
           "La commande a été envoyée et vous allez être redirigé vers la page de confirmation."
         );
         document.location.href = "../frontend/confirm.html";
-        res.json();
       } else {
         alert("Erreur de type " + res.status);
       }
@@ -179,21 +191,19 @@ if (cartCounter == 0) {
     let orderSummary = {};
 
     function saveOrder() {
-      // ENREGISTRER LA COMMANDE
       orderSummary = {
         firstName: firstName,
         price: orderTotal,
         id: order_id,
       };
-
       // TRANSFERER DANS LE LOCALSTORAGE
       lastOrder.push(orderSummary);
-      console.log(lastOrder);
+      console.log("La fonction saveOrder a été éxécutée avec succès");
       localStorage.setItem("lastOrder", JSON.stringify(lastOrder));
-    };
+    }
 
     saveOrder();
-  };
+  }
 
   // FIN DE LA CONDITION "SI LE PANIER N'EST PAS VIDE"
-};
+}

@@ -1,12 +1,16 @@
 // == POUR LE COMPTEUR DU PANIER ==
+
+// RECUPERER LE NOMBRE DE PRODUITS DANS LE PANIER
 let cart = [];
 let cartCounter = 0;
 const getCartClass = document.querySelector(".cart");
 
-// RECUPERER LE NOMBRE DE PRODUITS DANS LE PANIER
 function getCartCounter() {
   if (localStorage.getItem("productsInCart")) {
     cart = JSON.parse(localStorage.getItem("productsInCart"));
+    console.log(
+      "Les produits du localstorage ont été ajouté dans la variable 'cart'"
+    );
   }
   // PARCOURT LA LISTE DES PRODUITS DANS LE PANIER
   cart.forEach((element) => {
@@ -23,9 +27,11 @@ function getCartCounter() {
 getCartCounter();
 
 // == POUR LA PAGE INDEX.HTML ==
+
+// REQUÊTE API POUR RECUPERER TOUS LES PRODUITS
 const productList = document.querySelector(".products__list");
 let cameras;
-// REQUÊTE API
+
 const fetchCameras = async () => {
   cameras = await fetch("http://localhost:3000/api/cameras").then((res) =>
     res.json()
@@ -69,4 +75,5 @@ const showCameras = async () => {
     )
     .join("");
 };
+
 showCameras();
