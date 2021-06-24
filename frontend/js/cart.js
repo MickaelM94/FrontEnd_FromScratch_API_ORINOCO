@@ -59,11 +59,11 @@ if (cartCounter == 0) {
       <div id="${element[0]._id}" class="cart__product">
           <p class="cart__productName">${element[0].name}</p>
           <p class="cart__productPrice">${numberWithSpaces(
-            element[0].price
+            element[0].price / 100
           )}</p>
           <p>x<span class="quantity">${element[1]}</span></p>
           <p>Total : <span class="total">
-          ${numberWithSpaces(element[0].price * element[1])}
+          ${numberWithSpaces((element[0].price / 100) * element[1])}
           </span></p>
       </div>
       </a>
@@ -83,7 +83,7 @@ if (cartCounter == 0) {
     });
     // AFFICHER LE MONTANT TOTAL
     let getorderTotalClass = document.querySelector(".orderTotal");
-    getorderTotalClass.innerHTML = numberWithSpaces(orderTotal);
+    getorderTotalClass.innerHTML = numberWithSpaces(orderTotal / 100);
   }
 
   calculateTotal();
@@ -134,21 +134,11 @@ if (cartCounter == 0) {
 
     createContact();
 
-    // CREER L'ID DE LA COMMANDE
-    let order_id;
-
-    function createIdOrder() {
-      order_id = JSON.stringify(numberWithHyphen(Date.now()));
-      console.log("La fonction createIdOrder a été éxécutée avec succès");
-    }
-
-    createIdOrder();
-
     // CREER LE BODY DE LA REQUETE A ENVOYER A L'API
     let orderToSend = {};
 
     function createBodyRequest() {
-      orderToSend = { contact, products, order_id };
+      orderToSend = { contact, products };
       console.log("La fonction createBodyRequest a été éxécutée avec succès");
     }
 
@@ -180,6 +170,10 @@ if (cartCounter == 0) {
         alert(
           "La commande a été envoyée et vous allez être redirigé vers la page de confirmation."
         );
+        // RECUPERER L'ID DE LA COMMANDE
+        res.json().then((response) => {
+          localStorage.setItem("orderId", response.orderId);
+        });
         document.location.href = "../frontend/confirm.html";
       } else {
         alert("Erreur de type " + res.status);
@@ -194,7 +188,6 @@ if (cartCounter == 0) {
       orderSummary = {
         firstName: firstName,
         price: orderTotal,
-        id: order_id,
       };
       // TRANSFERER DANS LE LOCALSTORAGE
       lastOrder.push(orderSummary);

@@ -63,7 +63,7 @@ const showCameras = async () => {
                <p class="product__description">
                   ${camera.description}
                </p>
-               <p class="product__price">${numberWithSpaces(camera.price)}</p>
+               <p class="product__price">${numberWithSpaces(camera.price / 100)}</p>
                <a class="product__link btn btn-outline-secondary" href="../frontend/product.html?${
                  camera._id
                }">

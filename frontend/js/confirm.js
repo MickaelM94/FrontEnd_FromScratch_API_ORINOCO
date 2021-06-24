@@ -5,6 +5,7 @@ function numberWithSpaces(x) {
 
 // RECUPERER LES DONNEES DE LA DERNIERE COMMANDE
 let lastOrder = [];
+let orderId;
 
 function getLastOrder() {
   if (localStorage.getItem("lastOrder")) {
@@ -12,6 +13,9 @@ function getLastOrder() {
     console.log(
       "Les produits du localstorage ont été ajoutés dans la variable 'lastOrder'"
     );
+  }
+  if (localStorage.getItem("orderId")) {
+    orderId = localStorage.getItem("orderId");
   }
 }
 
@@ -25,8 +29,8 @@ function showLastOrder() {
 
   // AFFICHER LES DONNEES DE LA DERNIERE COMMANDE
   getNameClass.innerHTML = lastOrder[0].firstName;
-  getIdClass.innerHTML = lastOrder[0].id;
-  getPriceClass.innerHTML = numberWithSpaces(lastOrder[0].price);
+  getIdClass.innerHTML = orderId;
+  getPriceClass.innerHTML = numberWithSpaces(lastOrder[0].price / 100);
 }
 
 showLastOrder();

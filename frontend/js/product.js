@@ -64,7 +64,7 @@ const showProduct = async () => {
             </select>
             <div>
                 <p>
-                  ${numberWithSpaces(product.price)}
+                  ${numberWithSpaces(product.price / 100)}
                 </p>
                 <button onclick="oneAddToCounter()">
                     <i class="fas fa-plus"></i>
